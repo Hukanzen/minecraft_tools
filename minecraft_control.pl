@@ -11,6 +11,8 @@ my $FILE  ="minecraft_server.1.11.2.jar";
 my $SCNAME="minecraft"; #screen name
 
 #java -Xms${MEMORY} -Xmx${MEMORY} -Dhttp.proxyHost=${PROXYHOST} -Dhttp.proxyPort=${PROXYPORT} -jar Minecraft.jar
+#my $EVAL='stuff "'.$cmd.'"\015';
+#  "screen -p 0 -S minecraft -X eval 'stuff " $cmd \015"'
 
 &main;
 
