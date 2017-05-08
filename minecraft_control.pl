@@ -29,7 +29,8 @@ sub main
 			case "ps"       {&top;}
 			case "help"     {&help;}
 			case "exit"     {exit 1;}
-			else            {&mc_cmd("$_");}
+			#else            {&mc_cmd("$_");}
+			else            {&other("$_");}
 		}
 		
 		print "[Minecraft_CMD] >>> ";
@@ -50,6 +51,7 @@ sub start
 {
 	print "$_ function\n";
 	system("screen -AmdS $SCNAME java -Xms$MEMORY -Xmx$MEMORY -jar $FILE nogui");
+	#system("screen -AmdS $ java -Xms$MEMORY -Xmx$MEMORY -jar $FILE nogui");
 }
 
 sub stop
@@ -94,3 +96,20 @@ print<<"HELP_DOC"
 HELP_DOC
 }
 
+sub other
+{
+	my $str=shift(@_); #input string
+
+	if($str=~/bash_/){
+		$str=~s/bash_//g;
+		my $bash_v=`$str`; #execution bash command
+		$bash_v=~s/ /_/g;
+		my @bash_cmd=split(/\n/,$bash_v);
+		#&mc_cmd("say $bash_v");
+		foreach(@bash_cmd){
+			&mc_cmd("say $_");
+		}
+	}else{
+		&mc_cmd($str);	
+	}
+}
