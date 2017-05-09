@@ -25,6 +25,13 @@ sub main
 			case "start"    {&start;sleep(20);}
 			case "stop"     {&stop;}
 			case "gamerule" {&grule;}
+			case "restart"{
+				&stop;
+				sleep(20);
+				&start;
+				sleep(20);
+				&grule;
+			}
 			case "bash"     {&bash;}
 			case "ps"       {&top;}
 			case "help"     {&help;}
@@ -88,10 +95,19 @@ print<<"HELP_DOC"
 			case "start"    {&start;sleep(20);}
 			case "stop"     {&stop;}
 			case "gamerule" {&grule;}
+			case "restart"{
+				&stop;
+				sleep(20);
+				&start;
+				sleep(20);
+				&grule;
+			}
+			case "bash"     {&bash;}
 			case "ps"       {&top;}
 			case "help"     {&help;}
 			case "exit"     {exit 1;}
-			else            {&mc_cmd();}
+			#else            {&mc_cmd("$_");}
+			else            {&other("$_");}
 		}
 HELP_DOC
 }
