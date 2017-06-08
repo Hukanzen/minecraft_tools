@@ -8,7 +8,7 @@ use Switch;
 
 my $MEMORY="1024M";
 my $FILE  ="minecraft_server.1.11.2.jar";
-my $SCNAME="minecraft"; #screen name
+my $SCNAME="minecraft0"; #screen name
 
 #java -Xms${MEMORY} -Xmx${MEMORY} -Dhttp.proxyHost=${PROXYHOST} -Dhttp.proxyPort=${PROXYPORT} -jar Minecraft.jar
 #my $EVAL='stuff "'.$cmd.'"\015';
@@ -22,14 +22,19 @@ sub main
 	while(<STDIN>){
 		chomp($_);
 		switch("$_"){
-			case "start"    {&start;sleep(20);}
+			case "start"    {&start;&dot_wait(1,10);}
 			case "stop"     {&stop;}
 			case "gamerule" {&grule;}
 			case "restart"{
+				&mc_cmd("say restart after 30sec");
+				sleep(20);
+				&mc_cmd("say restart after 10sec");
+				sleep(10);
+				&mc_cmd("say restart start");
 				&stop;
-				sleep(20);
+				&dot_wait(1,10);
 				&start;
-				sleep(20);
+				&dot_wait(1,10);
 				&grule;
 			}
 			case "bash"     {&bash;}
@@ -42,6 +47,18 @@ sub main
 		
 		print "[Minecraft_CMD] >>> ";
 	}
+}
+
+sub dot_wait
+{
+	my ($t,$n)=@_;
+
+	for(my $i=0;$i<$n;$i++){
+		sleep($t);
+		print ".";
+	}
+
+	print "\n";
 }
 
 
